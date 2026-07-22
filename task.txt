@@ -2,10 +2,15 @@ rest api-json
 
 get/user -list all the user-done
 
-get/user/1 - get the user with id 1
-get/user/2 -get the user with id 2
+get/user/1 - get the user with id 1-done
+get/user/2 -get the user with id 2-done
 
-post/users - create new user
+dynamic path parameters
+get/api/users/:id-dynamic id can be anything as it can have n numbers of id 
+-done
+
+
+post/users - create new user 
 
 patch/user/1-edit the user with id 1
 
