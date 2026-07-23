@@ -1,7 +1,10 @@
 const express = require("express");
+const fs=require('fs');
 const users=require("./MOCK_DATA.json");
 const app=express()
 const port=8000;
+
+app.use(express.urlencoded({extended:false}));
 
 app.get("/users",(req,res)=>{
     const html=`
@@ -24,12 +27,19 @@ app.route("/api/users/:id").get((req,res)=>{
         return res.json({status:"pending"})
     });
 
-
-
+//posttt...
 
 
 app.post("/api/users",(req,res)=>{
-    return res.json({status:"pending"});
+    const body=req.body;
+    const newusers={
+        id: users.length+1,
+        ...body
+    };
+    users.push(newusers);
+    fs.writeFile("./MOCK_DATA.json",JSON.stringify(users),(err,data)=>{
+        return res.json({status:"success",id:users.length});
+    });
 });
 
 
