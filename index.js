@@ -5,6 +5,17 @@ const app=express()
 const port=8000;
 
 app.use(express.urlencoded({extended:false}));
+app.use((req,res,next)=>{
+   fs.appendFile("log.txt",`\n ${Date.now()}:${req.ip}:${req.method}: ${req.path}`,
+(err,data)=>{
+    next();
+});
+});
+
+// app.use((req,res,next)=>{
+//     console.log("hyyy i am the midleware 2");
+//     next();
+// });
 
 app.get("/users",(req,res)=>{
     const html=`
@@ -15,6 +26,7 @@ app.get("/users",(req,res)=>{
 });
 
 app.get("/api/users",(req,res)=>{
+   
    return res.json(users);
 });
 app.route("/api/users/:id").get((req,res)=>{
